@@ -1,0 +1,10 @@
+client/*
+!client/Krosmaster_Data
+!client/run.bat
+
+client/Krosmaster_Data/*
+!client/Krosmaster_Data/config
+!client/Krosmaster_Data/Mono
+
+client/Krosmaster_Data/Mono/*
+!client/Krosmaster_Data/Mono/mono.dll

@@ -1,0 +1,3 @@
+<servers>
+  <server name="Krosbox" ip="192.168.1.111" port="8600" haapiUrl = "https://haapi.ankama.com/" shopUrl="http://www.krosmaster.com/" type="prod"/>
+</servers>
