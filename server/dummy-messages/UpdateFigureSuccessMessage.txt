@@ -1,0 +1,4 @@
+0A 06 # PlayerFigureSuccess 
+	0A 04 # FigureSuccess 
+		08 1B
+		10 00

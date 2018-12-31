@@ -1,0 +1,6 @@
+0A 0B # ArenaTeamData 
+	08 00
+	12 01 30 # "undefined"
+	1A 00
+	20 00
+	28 00
