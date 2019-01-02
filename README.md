@@ -10,7 +10,7 @@
 
 ### Server
 
-`cd server`  
-`node .`
+`cd server`
+`yarn start`
 
-Right now it doesn't do much, only the minimum required to enter the home screen.
+Right now it doesn't do much, just the minimum required to bypass authentication and enter the home screen. Every other message type is still recognized and logged by the server (at least I think so) but not handled whatsoever.
