@@ -1,0 +1,242 @@
+syntax = "proto2";
+package Krosbox;
+
+// Proto extractor compiled unit - https://github.com/HearthSim/proto-extractor
+
+
+// ref: com.ankama.unity.framework.protocol.common.ServerType
+enum ServerType {
+	LOBBY = 1;
+	MATCH = 2;
+	CHAT = 3;
+	COLLECTION = 4;
+	ICE = 5;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.AccountInformationData
+message AccountInformationData {
+	optional int32 account_id = 1;
+	optional string username = 2;
+	optional string nickname = 3;
+	optional string lang = 4;
+	optional int32 community = 5;
+	optional bool administrator = 6;
+	optional bool moderator = 7;
+	optional string account_type = 8;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ChooseNicknameRequestMessage
+message ChooseNicknameRequestMessage {
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ClientActivityUpdateMessage
+message ClientActivityUpdateMessage {
+	optional int32 account_id = 1;
+	optional bool activity = 2;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ClientDisconnectedMessage
+message ClientDisconnectedMessage {
+	optional int32 account_id = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ClientEvictionMessage
+message ClientEvictionMessage {
+	optional int32 account_id = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.CoordinatesData
+message CoordinatesData {
+	optional int32 x = 1;
+	optional int32 y = 2;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.CrossGameLoginMessage
+message CrossGameLoginMessage {
+	optional int32 game_id = 1;
+	optional string nickname = 2;
+	optional string token = 3;
+	optional string device = 4;
+	optional string operating_system = 5;
+	optional string device_unique_identifier = 6;
+	optional string client_type = 7;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ErrorMessage
+message ErrorMessage {
+	// ref: com.ankama.unity.framework.protocol.common.ErrorMessage/Types/ErrorType
+	enum ErrorType {
+		AUTH_TIMEOUT = 1;
+		SESSION_TIMEOUT = 2;
+		SESSION_INVALID = 3;
+	}
+
+	optional ErrorType error_type = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.InterserverLoginReferralAcknowledgementMessage
+message InterserverLoginReferralAcknowledgementMessage {
+	optional int32 account_id = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.InterserverLoginReferralMessage
+message InterserverLoginReferralMessage {
+	optional AccountInformationData account = 1;
+	optional string token = 2;
+	optional int64 ip_code = 3;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.KeepAliveConnectionMessage
+message KeepAliveConnectionMessage {
+}
+
+// ref: com.ankama.unity.framework.protocol.common.LoginChallengeMessage
+message LoginChallengeMessage {
+	optional string nonce = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.LoginErrorMessage
+message LoginErrorMessage {
+	// ref: com.ankama.unity.framework.protocol.common.LoginErrorMessage/Types/ErrorType
+	enum ErrorType {
+		AUTH_SERVICE_UNAVAILABLE = 1;
+		INVALID_LOGIN = 2;
+		INVALID_TOKEN = 3;
+		BANNED_ACCOUNT = 4;
+		ACCOUNT_LOADING_ERROR = 5;
+		ACCESS_DENIED = 6;
+		ALREADY_CONNECTED = 7;
+		SERVER_LOCK = 8;
+		SERVER_FULL = 9;
+		BLACKLISTED_IP = 10;
+		LOCKED_ACCOUNT = 11;
+		DELETED_ACCOUNT = 12;
+		INVALID_NICKNAME = 13;
+		SERVER_NOT_READY = 14;
+		RESET_ANKAMA = 15;
+		OTP_TIME_FAILED = 16;
+		SECURITY_CARD = 17;
+		BRUTE_FORCE = 18;
+		PARTNER = 19;
+		MAIL_NO_VALID = 20;
+		BETA_CLOSED = 21;
+		FORBIDDEN_COMMUNITY = 22;
+		ACCOUNT_LINKED = 23;
+		NO_ACCOUNT = 24;
+	}
+
+	optional ErrorType error_type = 1;
+	optional double until_date = 2;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.LoginReferralMessage
+message LoginReferralMessage {
+	optional TcpAddressData slave_address = 1;
+	optional string token = 3;
+	optional ServerType slave_type = 4;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.LoginRequestMessage
+message LoginRequestMessage {
+	optional string user_name = 1;
+	optional string secret = 2;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.LoginSucessMessage
+message LoginSucessMessage {
+}
+
+// ref: com.ankama.unity.framework.protocol.common.NicknameSelectionErrorMessage
+message NicknameSelectionErrorMessage {
+	// ref: com.ankama.unity.framework.protocol.common.NicknameSelectionErrorMessage/Types/ErrorType
+	enum ErrorType {
+		UNKNOWN_FAIL = 1;
+		TOO_LONG = 2;
+		TOO_SHORT = 3;
+		ALREADY_EXISTS = 4;
+		NICKNAME_EQUALS_LOGIN = 5;
+		FORBIDDEN_CHARACTERS = 6;
+		FORBIDDEN_WORDS = 7;
+	}
+
+	optional ErrorType type = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.NicknameSelectionMessage
+message NicknameSelectionMessage {
+	optional string nickname = 1;
+	optional string lang = 2;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.NicknameSelectionTranslatedErrorMessage
+message NicknameSelectionTranslatedErrorMessage {
+	optional string translated_error = 1;
+	repeated string suggestions = 2;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ReferredSlaveLoginMessage
+message ReferredSlaveLoginMessage {
+	optional string token = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ServerMessageInfo
+message ServerMessageInfo {
+	optional string message = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.SlaveServerInformationMessage
+message SlaveServerInformationMessage {
+	optional TcpAddressData client_address = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.SlaveStatusMessage
+message SlaveStatusMessage {
+	// ref: com.ankama.unity.framework.protocol.common.SlaveStatusMessage/Types/SlaveServerStatus
+	enum SlaveServerStatus {
+		UNKNOWN = 1;
+		AVAILABLE = 2;
+		UNAVAILABLE = 3;
+	}
+
+	optional SlaveServerStatus status = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.TcpAddressData
+message TcpAddressData {
+	optional string host = 1;
+	optional uint32 port = 2;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ValidateGuestInitRequest
+message ValidateGuestInitRequest {
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ValidateGuestInitResponse
+message ValidateGuestInitResponse {
+	optional string key = 1;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ValidateGuestRequest
+message ValidateGuestRequest {
+	optional string lang = 1;
+	optional string login = 2;
+	optional string password = 3;
+	optional string nickname = 4;
+	optional string email = 5;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.ValidateGuestResponse
+message ValidateGuestResponse {
+	optional bool success = 1;
+	optional string translated_error = 2;
+	repeated string suggestions = 3;
+}
+
+// ref: com.ankama.unity.framework.protocol.common.VersionMessage
+message VersionMessage {
+	optional uint32 major = 1;
+	optional uint32 minor = 2;
+	optional uint32 revision = 3;
+	optional string quality = 4;
+}
+

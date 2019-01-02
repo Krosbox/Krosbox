@@ -1,4 +1,5 @@
 .DS_Store
+node_modules/
 
 client/*
 !client/Krosmaster_Data
@@ -10,3 +11,5 @@ client/Krosmaster_Data/*
 
 client/Krosmaster_Data/Mono/*
 !client/Krosmaster_Data/Mono/mono.dll
+
+debug.log
