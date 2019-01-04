@@ -64,57 +64,10 @@ var server = net.createServer((socket) => {
 
               var payload = {
                 "gameData": {
-                  "ladder" : {
-
-                  },
-                  "krozRewards" : {
-                    "victoryRewardData": {
-                      modulo: 0,
-                      reward: 0
-                    }
-                  },
-                  matchDefinitions: [
-                    {
-                      id: 15,
-                      // repeated int32 available_boards = 2;
-                      // repeated int32 playable_figures_type = 3;
-                      teamCompositionContraintsId: 0,
-                      rulesDataId: 0,
-                      matchType: 4,
-                      victoryType: 1,
-                      // repeated int32 objectives = 10;
-                      winningObjective: 0,
-                      // repeated FigureIdentification forced_player_team = 12;
-                      // repeated FigureIdentification forced_iateam = 13;
-                      nextMatchId: 0,
-                      skipPhaseConfig: {
-                          skipObservation: false,
-                          skipTransition: false,
-                          skipPlacement: false
-                      },
-                      accessibilityPredicateId: 0,
-                      region: 1,
-                      boss: false,
-                      availableDemonicRewards: [],
-                      unlockedFigureId: 0,
-                      // repeated int32 variables = 21;
-                    }
-                  ],
-                  "meleeReward" : {
-                      bonusFourMatch: 0,
-                      fixedRewardPerVictory: 0,
-                      randomRewardPerVictory: 0,
-                      krozRewardWeight: 0,
-                      fragRewardWeight: 0,
-                      figRewardWeight: 0,
-                      krozRewardValue: 0,
-                      fragRewardValue: 0,
-                      figRewardValue: 0
-                  }
+                  "ladder" : {},
+                  "krozRewards" : {}
                 },
-                "figureGameData": {
-
-                }
+                "figureGameData": {}
               };
 
               var err = KrosboxPacket.GameDataWithFigureGameDataMessage.verify(payload);

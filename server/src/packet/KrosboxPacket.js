@@ -1,7 +1,7 @@
 const _ = require("lodash");
 
 const protobuf = require("protobufjs/minimal");
-const { Krosbox } = require("./proto.js");
+const Krosbox = require("./proto.js").krosbox;
 
 const console = require("../util/logger")
 
@@ -15,7 +15,7 @@ Krosbox.decode = function(packet) {
   try {
     if(decoders[packet.protocolId] && decoders[packet.protocolId][packet.messageId]) {
       var messageName = decoders[packet.protocolId][packet.messageId];
-      var decoded = Krosbox[messageName].decode(packet.body);
+      var decoded = (Krosbox[messageName] || Krosbox.data[messageName] || Krosbox.collection[messageName] || Krosbox.common[messageName]).decode(packet.body);
       console.info(`[‹] ${messageName} (${packet.size + 4} bytes)`)
       return decoded;
     }
