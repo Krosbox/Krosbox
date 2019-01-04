@@ -3,23 +3,25 @@ const net = require("net");
 const express = require('express');
 const console = require("./util/logger");
 const { hexToByteArray } = require("./util/byte");
-const AnkamaPacket = require("./packet/AnkamaPacket");
-const KrosboxPacket = require("./packet/KrosboxPacket");
+const AnkamaPacket = require("./network/AnkamaPacket");
+const Connection = require("./network/connection");
 
 const SERVER_PORT = 8600;
 
 var server = net.createServer((socket) => {
   console.info("[SERVER] Connection from: " + socket.remoteAddress + ":" + socket.remotePort);
   
-  socket.write(hexToByteArray("0000000B 00000002 00000067 0A0130"), undefined, () => {
-    console.info("[›] LoginChallengeMessage")
-  });
+  var connection = new Connection(socket);
+
+  connection.send("LoginChallengeMessage", { nonce: "0" });
 
   socket.on("data", (data) => {
     var ankamapacket = new AnkamaPacket();
     var bytesDecoded = ankamapacket.decode(data, 0, data.length);
     if(bytesDecoded >= 12) {
-      var decoded = KrosboxPacket.decode(ankamapacket);
+
+      var decoded = connection.decode(ankamapacket);
+
       if(decoded && decoded != "unimplemented") {
 
         if(ankamapacket.protocolId == 1) {
@@ -50,17 +52,7 @@ var server = net.createServer((socket) => {
                 }
               };
 
-              var err = KrosboxPacket.AccountInformationMessage.verify(payload);
-              if(err) throw Error(err);
-
-              var msg  = KrosboxPacket.AccountInformationMessage.create(payload);
-              var encodedmsg = KrosboxPacket.AccountInformationMessage.encode(msg).finish();
-
-              var ankamaMsg = new AnkamaPacket();
-              var encodedAnkamaMsg = ankamaMsg.encode(encodedmsg, 109, 1000);
-
-              console.info(`[›] AccountInformationMessage (${encodedAnkamaMsg.length} bytes)`);
-              socket.write(encodedAnkamaMsg);
+              connection.send("AccountInformationMessage", payload);
 
               var payload = {
                 "gameData": {
@@ -70,17 +62,7 @@ var server = net.createServer((socket) => {
                 "figureGameData": {}
               };
 
-              var err = KrosboxPacket.GameDataWithFigureGameDataMessage.verify(payload);
-              if(err) throw Error(err);
-
-              var msg  = KrosboxPacket.GameDataWithFigureGameDataMessage.create(payload);
-              var encodedmsg = KrosboxPacket.GameDataWithFigureGameDataMessage.encode(msg).finish();
-
-              var ankamaMsg = new AnkamaPacket();
-              var encodedAnkamaMsg = ankamaMsg.encode(encodedmsg, 109, 1005);
-
-              console.info(`[›] GameDataWithFigureGameDataMessage (${encodedAnkamaMsg.length} bytes)`);
-              socket.write(encodedAnkamaMsg);
+              connection.send("GameDataWithFigureGameDataMessage", payload);
 
               var payload = {
                 "playerfigureSuccess": {
@@ -93,17 +75,7 @@ var server = net.createServer((socket) => {
                 }
               };
 
-              var err = KrosboxPacket.UpdateFigureSuccessMessage.verify(payload);
-              if(err) throw Error(err);
-
-              var msg  = KrosboxPacket.UpdateFigureSuccessMessage.create(payload);
-              var encodedmsg = KrosboxPacket.UpdateFigureSuccessMessage.encode(msg).finish();
-
-              var ankamaMsg = new AnkamaPacket();
-              var encodedAnkamaMsg = ankamaMsg.encode(encodedmsg, 109, 1152);
-
-              console.info(`[›] UpdateFigureSuccessMessage (${encodedAnkamaMsg.length} bytes)`);
-              socket.write(encodedAnkamaMsg);
+              connection.send("UpdateFigureSuccessMessage", payload);
 
               var payload = {
                 "teams": [
@@ -117,17 +89,7 @@ var server = net.createServer((socket) => {
                 ]
               };
 
-              var err = KrosboxPacket.ArenaTeamInformationMessage.verify(payload);
-              if(err) throw Error(err);
-
-              var msg  = KrosboxPacket.ArenaTeamInformationMessage.create(payload);
-              var encodedmsg = KrosboxPacket.ArenaTeamInformationMessage.encode(msg).finish();
-
-              var ankamaMsg = new AnkamaPacket();
-              var encodedAnkamaMsg = ankamaMsg.encode(encodedmsg, 109, 1150);
-
-              console.info(`[›] ArenaTeamInformationMessage (${encodedAnkamaMsg.length} bytes)`);
-              socket.write(encodedAnkamaMsg);
+              connection.send("ArenaTeamInformationMessage", payload);
 
               break;
           }
@@ -139,6 +101,10 @@ var server = net.createServer((socket) => {
         }
       }
     }
+  });
+
+  socket.on("end", () => {
+    console.info("[SERVER] Client disconnected: " + socket.remoteAddress + ":" + socket.remotePort);
   });
 });
 
