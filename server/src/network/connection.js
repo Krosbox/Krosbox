@@ -27,7 +27,6 @@ Connection.prototype.send = function(messageName, payload) {
 	var encodedMsg = Packet.encode(message).finish();
 
 	var simpleName = this._getSimpleMessageName(messageName);
-	console.debug(simpleName)
 
   var encodedAnkamaMsg = new AnkamaPacket().encode(encodedMsg, encoderMessages[simpleName]);
 
@@ -46,8 +45,10 @@ Connection.prototype.decode = function(packet) {
 	try {
     if(decoderMessages[packet.protocolId] && decoderMessages[packet.protocolId][packet.messageId]) {
       var messageName = decoderMessages[packet.protocolId][packet.messageId];
-      var decoded = root.lookupType(messageName).decode(packet.body);
+      var Message = root.lookupType(messageName);
+      var decoded = Message.decode(packet.body);
       console.info(`[‹] ${messageName} (${packet.size + 4} bytes)`);
+      console.debug(`[‹] ${JSON.stringify(Message.toObject(decoded), null, 2)}`);
       return decoded;
     }
     else {

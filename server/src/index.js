@@ -57,7 +57,108 @@ var server = net.createServer((socket) => {
               var payload = {
                 "gameData": {
                   "ladder" : {},
-                  "krozRewards" : {}
+                  "krozRewards" : {},
+                  "matchDefinitions": [
+                    {
+                      "id": 3, // 3 = INCARNAM (TUTO)
+                      "playableFiguresType": [12],
+                      "teamCompositionContraintsId": 0, // references .teamCompositionConstraints[0]
+                      "rulesDataId": 0,
+                      "matchType": 4, // 4 = TUTORIAL,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 4, // 3 = INCARNAM (TUTO)
+                      "teamCompositionContraintsId": 0,
+                      "rulesDataId": 0,
+                      "matchType": 4, // 4 = TUTORIAL,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 5, // 3 = INCARNAM (TUTO)
+                      "teamCompositionContraintsId": 0,
+                      "rulesDataId": 0,
+                      "matchType": 4, // 4 = TUTORIAL,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 7, // 3 = INCARNAM (TUTO)
+                      "teamCompositionContraintsId": 0,
+                      "rulesDataId": 0,
+                      "matchType": 4, // 4 = TUTORIAL,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 27, // 3 = INCARNAM (TUTO)
+                      "teamCompositionContraintsId": 0,
+                      "rulesDataId": 0,
+                      "matchType": 4, // 4 = TUTORIAL,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 15, // 15 = ASTRUB
+                      "playableFiguresType": [],
+                      "teamCompositionContraintsId": 1, // references .teamCompositionConstraints[1]
+                      "rulesDataId": 0,
+                      "matchType": 5, // 5 = MATCH_PVE,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 16, // 15 = ASTRUB
+                      "teamCompositionContraintsId": 0, // references .teamCompositionConstraints[0]
+                      "rulesDataId": 0,
+                      "matchType": 5, // 5 = MATCH_PVE,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 17, // 15 = ASTRUB
+                      "teamCompositionContraintsId": 0, // references .teamCompositionConstraints[0]
+                      "rulesDataId": 0,
+                      "matchType": 5, // 5 = MATCH_PVE,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 18, // 15 = ASTRUB
+                      "teamCompositionContraintsId": 0, // references .teamCompositionConstraints[0]
+                      "rulesDataId": 0,
+                      "matchType": 5, // 5 = MATCH_PVE,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 19, // 15 = ASTRUB
+                      "teamCompositionContraintsId": 0, // references .teamCompositionConstraints[0]
+                      "rulesDataId": 0,
+                      "matchType": 5, // 5 = MATCH_PVE,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                    {
+                      "id": 20, // 15 = ASTRUB
+                      "teamCompositionContraintsId": 0, // references .teamCompositionConstraints[0]
+                      "rulesDataId": 0,
+                      "matchType": 5, // 5 = MATCH_PVE,
+                      "victoryType": 2 // 1 = GG, 2 = OBJECTIVE
+                    },
+                  ],
+                  "teamCompositionConstraints": [
+                    {
+                      "minTeamSize": 1,
+                      "maxTeamSize": 1,
+                      "maxTotalLevel": 3,
+                      "maxSameFigureOccurrences": 1,
+                      "maxSameChampionOccurrences": 1,
+                      "maxSameMediocreOccurrences": 1,
+                      "id": 0
+                    },
+                    {
+                      "minTeamSize": 2,
+                      "maxTeamSize": 2,
+                      "maxTotalLevel": 3,
+                      "maxSameFigureOccurrences": 1,
+                      "maxSameChampionOccurrences": 1,
+                      "maxSameMediocreOccurrences": 1,
+                      "id": 1
+                    }
+                  ]
                 },
                 "figureGameData": {}
               };
@@ -68,9 +169,25 @@ var server = net.createServer((socket) => {
                 "playerfigureSuccess": {
                   "figureSuccess": [
                     {
+                      matchDefinition: 3, // so we can skip tutorial and jump straight to the home screen
+                      figureType: 0
+                    },
+                    {
+                      matchDefinition: 4, // so we can skip tutorial and jump straight to the home screen
+                      figureType: 0
+                    },
+                    {
+                      matchDefinition: 5, // so we can skip tutorial and jump straight to the home screen
+                      figureType: 0
+                    },
+                    {
+                      matchDefinition: 7, // so we can skip tutorial and jump straight to the home screen
+                      figureType: 0
+                    },
+                    {
                       matchDefinition: 27, // so we can skip tutorial and jump straight to the home screen
                       figureType: 0
-                    }
+                    },
                   ]
                 }
               };

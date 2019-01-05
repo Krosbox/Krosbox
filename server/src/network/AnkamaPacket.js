@@ -10,7 +10,7 @@ class AnkamaPacket {
   }
 
   decode(bytes, offset, available) {
-    console.debug(`[‹] ${bytesToString(bytes)}`)
+    // console.debug(`[‹] ${bytesToString(bytes)}`)
     var num = 0;
 
     if(available < 4) {
@@ -66,7 +66,7 @@ class AnkamaPacket {
 
     message.copy(buffer, 12);
 
-    console.debug(`[›] ${bytesToString(buffer)}`)
+    // console.debug(`[›] ${bytesToString(buffer)}`)
     return buffer;
   }
 }
