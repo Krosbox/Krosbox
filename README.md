@@ -10,7 +10,11 @@
 
 ### Server
 
-`cd server`
+`cd server`  
 `yarn start`
 
-Right now it doesn't do much, just the minimum required to bypass authentication and enter the home screen. Every other message type is still recognized and logged by the server (at least I think so) but not handled whatsoever.
+## Changelog
+
+**(2019-01-07)** The first tutorial map is "playable".
+
+**(2019-01-02)** Right now it doesn't do much, just the minimum required to bypass authentication and enter the home screen. Every other message type is still recognized and logged by the server (at least I think so) but not handled whatsoever.
